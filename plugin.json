@@ -1,0 +1,19 @@
+{
+  "id": "neobase.snuke",
+  "name": "Snuke",
+  "version": "1.0.0",
+  "author": "NDesumeur",
+  "description": "Un serpent sur 24 × 24 : classique, sans bords, labyrinthe, mue et chrono.",
+  "icon": "icon.png",
+  "entry": "index.js",
+  "view": "snuke",
+  "neobase": ">=4.0.0",
+  "type": "app",
+  "category": "Jeux",
+  "mobile": false,
+  "system": false,
+  "dependencies": {},
+  "permissions": [
+    "full"
+  ]
+}
