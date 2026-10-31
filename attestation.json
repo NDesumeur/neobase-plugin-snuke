@@ -1,0 +1,9 @@
+{
+  "pluginId": "neobase.snuke",
+  "repo": "NDesumeur/neobase-plugin-snuke",
+  "version": "1.1.0",
+  "sha256": "04ed4c7d496756a2ecfe197ed86caada52ff3736bfc0b3d09b9d3e5348fce5e0",
+  "approvedAt": "2026-10-31T22:44:06.005Z",
+  "neobase": ">=4.0.0",
+  "signature": "DZT8lS271v6v+flFTdDg4p8JalXXXtOp9OtrTG/P0WbDG4laV1oO90yvkit5FIcf6t93txGUTO3U0DwOCJPeDg=="
+}
