@@ -1,6 +1,6 @@
 // Snuke : ton appli d'origine (HTML et code inchangés), livrée en plugin.
-// Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
-// Elle tourne dans le bac à sable de NeoBase, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
+// Ses données sont dans le dossier du plugin, que NeoDex sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoDex.
+// Elle tourne dans le bac à sable de NeoDex, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
 const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\"label\">Snuke</span><span class=\"hint\" id=\"snInfo\"></span><div class=\"agNav\"><select class=\"f gSel\" id=\"snMode\" title=\"Mode de jeu\"></select><button class=\"btn main px\" id=\"snNew\">NOUVELLE PARTIE</button></div></div>\n      <div class=\"gameBox tall snBox\"><canvas id=\"snCanvas\" width=\"240\" height=\"264\"></canvas></div>\n      <div class=\"snLegend\" id=\"snLegend\" style=\"display:none\"></div>\n      <div class=\"hint\">Flèches, ZQSD ou glisser à la souris : tourner · P ou Échap : pause · espace : rejouer. Chaque fruit allonge le serpent et le fait aller plus vite ; une étoile apparaît tous les 7 fruits (50 points, elle ne reste pas longtemps). Classique : les bords tuent · Sans bords : on ressort de l'autre côté · Labyrinthe : 4 plateaux murés, le suivant tous les 10 fruits · Mue : tous les 5 fruits la queue se change en pierre et le serpent repart court · Chrono : 60 secondes, rien ne tue, se mordre coupe la queue · Vergers : trois fruits sur le plateau, dix espèces ; la vitesse du serpent est celle du dernier fruit mangé (piment fulgurant, myrtille tranquille), et les fruits lents rapportent moins. Records et statistiques sauvegardés et synchronisés.</div>\n    </div>";
 /*CSS-MOVED*/ const CSS = `.gameBox{display:grid;place-items:center;padding:10px;background:#05010b;box-shadow:0 0 0 3px var(--line2)}
 .gameBox.snBox canvas{aspect-ratio:240/264}
@@ -10,10 +10,10 @@ const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\
 .snLegend div{display:flex;align-items:center;gap:10px}
 .snLegend canvas{width:20px;height:20px;image-rendering:pixelated;flex:none}
 .gSel{width:auto;font-size:14px;padding:6px 10px;margin-right:8px}
-`;  // le style de ce plugin (il utilise les variables du thème de NeoBase)
+`;  // le style de ce plugin (il utilise les variables du thème de NeoDex)
 export default async function (ctx) {
   const view = ctx.view;
-  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoBase pour s'ouvrir."; return; }
+  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoDex pour s'ouvrir."; return; }
   const host = ctx.host, { el, toast, sfx, ask, newTab, pixIcon, PIX, WX } = host;
   const folder = ctx.folder, legacy = ctx.legacy || {};
   ctx.host.addStyle(CSS);
@@ -98,7 +98,7 @@ function snStart(kind = snSave().kind) {
   sn = {raf: sn?.raf || 0, g: $('snCanvas').getContext('2d'), mode: 'ready', kind, tick: 0, maze: 0, rocks: new Set(), score: 0, eaten: 0, wait: 0, queue: [], dir: [1, 0],
     fruit: null, star: null, time: kind === 'chrono' ? 3600 : 0, record: false, cut: 0, fruits: [], fspd: 6, grow: 0, last: null};
   snBody(); snFruit(); snInfo(); $('snMode').value = kind; $('snLegend').style.display = kind === 'verger' ? '' : 'none';
-  gameLoop(sn, 'neodyme:snake', snUpdate, snDraw);
+  gameLoop(sn, 'neodex:snake', snUpdate, snDraw);
 }
 function snBody() {
   const y = sn.kind === 'labyrinthe' ? SN.mazes[sn.maze][2] : 12;
@@ -232,7 +232,7 @@ function snLegend() {  // les dix fruits, leur vitesse et leurs points
 function snInfo() { const s = snSave(); $('snInfo').textContent = 'Records : ' + Object.entries(SN.kinds).map(([k, v]) => v + ' ' + (games?.best['snake_' + k] ?? 0)).join(' · ') + ' · ' + s.games + ' parties · ' + s.fruits + ' fruits · plus long : ' + s.longest; }
 function snOpen() {
   if (!$('snMode').options.length) $('snMode').replaceChildren(...Object.entries(SN.kinds).map(([k, v]) => Object.assign(el('option', '', v), {value: k})));
-  if (sn) { gameLoop(sn, 'neodyme:snake', snUpdate, snDraw); snInfo(); return; }
+  if (sn) { gameLoop(sn, 'neodex:snake', snUpdate, snDraw); snInfo(); return; }
   snStart();
 }
 snLegend();
