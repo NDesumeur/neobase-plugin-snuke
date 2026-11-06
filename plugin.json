@@ -1,7 +1,7 @@
 {
   "id": "neodex.snuke",
   "name": "Snuke",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "NDesumeur",
   "description": "Un serpent sur 24 × 24 : classique, sans bords, labyrinthe, mue et chrono.",
   "icon": "icon.png",
